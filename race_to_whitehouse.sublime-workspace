@@ -1,0 +1,472 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"start",
+				"startGame"
+			],
+			[
+				"init",
+				"initialY"
+			],
+			[
+				"in",
+				"initialY"
+			],
+			[
+				"initia",
+				"initialY"
+			],
+			[
+				"e",
+				"enemy"
+			],
+			[
+				"ini",
+				"initialY"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"new",
+				"newRow"
+			],
+			[
+				"all",
+				"allEnemies"
+			],
+			[
+				"wel",
+				"welcomeMessage"
+			],
+			[
+				"bio",
+				"biopic"
+			],
+			[
+				"formattedlo",
+				"formattedlocation"
+			],
+			[
+				"formattedt",
+				"formattedtwitter"
+			],
+			[
+				"for",
+				"formattedEmail"
+			],
+			[
+				"cont",
+				"contacts"
+			],
+			[
+				"info",
+				"infoWindow"
+			],
+			[
+				"displ",
+				"displayMap"
+			],
+			[
+				"ben",
+				"benLogClicks"
+			],
+			[
+				"displa",
+				"displayName"
+			],
+			[
+				"dis",
+				"display"
+			],
+			[
+				"display",
+				"displayWork"
+			],
+			[
+				"ed",
+				"education"
+			],
+			[
+				"HTMLsc",
+				"HTMLschoolDates"
+			],
+			[
+				"formatted",
+				"formattedDates"
+			],
+			[
+				"form",
+				"formattedMajor"
+			],
+			[
+				"forma",
+				"formattedName"
+			],
+			[
+				"educat",
+				"education-entry"
+			],
+			[
+				"sch",
+				"school"
+			],
+			[
+				"sc",
+				"schools"
+			],
+			[
+				"project",
+				"project"
+			],
+			[
+				"proje",
+				"projects"
+			],
+			[
+				"HTMLprojectd",
+				"HTMLprojectDescription"
+			],
+			[
+				"formattedDe",
+				"formattedDescription"
+			],
+			[
+				"proj",
+				"projects"
+			],
+			[
+				"las",
+				"lastName"
+			],
+			[
+				"to",
+				"toUpperCase"
+			],
+			[
+				"log",
+				"logClicks"
+			],
+			[
+				"HTML",
+				"HTMLworkDescription"
+			],
+			[
+				"wor",
+				"work"
+			],
+			[
+				"a",
+				"append"
+			],
+			[
+				"wo",
+				"work-entry"
+			],
+			[
+				"CA",
+				"CA"
+			],
+			[
+				"format",
+				"formattedRole"
+			],
+			[
+				"fu",
+				"funThoughts"
+			],
+			[
+				"aw",
+				"awesome"
+			],
+			[
+				"as",
+				"awesomeThoughts"
+			],
+			[
+				"awe",
+				"awesomeThoughts"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"mo",
+				"modal-title"
+			],
+			[
+				"backgroun",
+				"background-size"
+			],
+			[
+				"jum",
+				"jumbotron-1600x541"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"max-",
+				"max-width"
+			],
+			[
+				"min",
+				"min-width"
+			],
+			[
+				"h",
+				"h1	Tag"
+			],
+			[
+				"li",
+				"link	Tag"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "js/app.js",
+			"settings":
+			{
+				"buffer_size": 3788,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_3/race_to_whitehouse.txt",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_3/.gitignore",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_2/js/helper.js",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_2/js/resumeBuilder.js",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_2/index.html",
+		"/Users/bcupham/Dropbox/webfiles/udacity/frontend-nanodegree-resume/js/resumeBuilder.js",
+		"/Users/bcupham/Dropbox/webfiles/udacity/frontend-nanodegree-resume/js/helper.js",
+		"/Users/bcupham/Dropbox/webfiles/udacity/frontend-nanodegree-resume/index.html",
+		"/Users/bcupham/Dropbox/webfiles/udacity/frontend-nanodegree-resume/README.md",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/css/style.css",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/js/global.js",
+		"/Users/bcupham/.bash_profile",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/index.html",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/.git/MERGE_MSG",
+		"/Users/bcupham/.git-completion.bash",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/images/b-oval-large.png",
+		"/Users/bcupham/Dropbox/webfiles/portfolio_website/index.html",
+		"/Users/bcupham/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/test1.txt",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/filetodelete1.txt",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/filetodelete2.txt",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/.git/COMMIT_EDITMSG",
+		"/Users/bcupham/Dropbox/webfiles/udacity/FE_Nanodegree_Project_1/style.css",
+		"/css",
+		"/Users/bcupham/Downloads/Website Email for Previous Performers .html",
+		"/Users/bcupham/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/bcupham/Documents/explore_california/index.html",
+		"/Users/bcupham/Documents/explore_california/tours/tour_detail_bigsur.html",
+		"/Users/bcupham/Documents/explore_california/tours/tour_detail_backpack.html",
+		"/Users/bcupham/Documents/explore_california/resources/faq.html",
+		"/Users/bcupham/Documents/explore_california/tours/tour_detail_backpack_cal.html",
+		"/Users/bcupham/Documents/explore_california/tours.html",
+		"/Users/bcupham/Documents/explore_california/support.html",
+		"/Users/bcupham/Documents/explore_california/resources.html",
+		"/Users/bcupham/Documents/explore_california/mission.html",
+		"/Users/bcupham/Documents/explore_california/.git/COMMIT_EDITMSG",
+		"/Users/bcupham/Documents/explore_california/contact.html",
+		"/Users/bcupham/Documents/explore_california/explorers.html",
+		"/Users/bcupham/Documents/first_git_project/This is a file to delete2.txt",
+		"/Users/bcupham/Documents/first_git_project/.git/COMMIT_EDITMSG",
+		"/Users/bcupham/second_file.txt",
+		"/Users/bcupham/third_file.txt",
+		"/Users/bcupham/first_file.txt"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"resumebuilder.js",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"schools",
+			"display",
+			"'",
+			"'major'",
+			"' ",
+			"'degree'",
+			"'city'",
+			"'name'",
+			"Screenwriting",
+			"Front",
+			"Nanodegree",
+			"git-prompt",
+			"backpack_cal.html",
+			"backpack.html",
+			"4315"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\"",
+			"backpack_cal.html",
+			"4310"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "js/app.js",
+					"settings":
+					{
+						"buffer_size": 3788,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/bcupham/Dropbox/webfiles/udacity/frontend-nanodegree-resume/udacity-frontend-resume.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 289.0,
+	"status_bar_visible": true
+}
