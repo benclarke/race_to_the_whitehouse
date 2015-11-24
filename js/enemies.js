@@ -11,7 +11,8 @@ var MovingEnemy = function() {
 
 	  // Draw the enemy on the screen, required method for game
 		this.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+			this.vy = -boardHeight + this.y;
+	    ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
 		};
 
 		this.hitSprite = 'images/enemy-gaffe.png';
@@ -218,7 +219,8 @@ var StationaryEnemy = function() {
 	this.hitSprite = 'images/enemy-gaffe.png';
 
 	this.render = function() {
-		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+		this.vy = -boardHeight + this.y;
+		ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
 	}
 
 }

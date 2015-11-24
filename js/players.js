@@ -22,7 +22,7 @@ var Player = function() {
 		this.enemySpeed = 1;
 
 		//cash on hand
-		var initialCash = 2000;
+		var initialCash = 100000;
 		this.cash = initialCash;
 
 		// what happens with each frame
@@ -45,12 +45,16 @@ var Player = function() {
 		}
 
     this.render = function() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    		this.vy = Math.abs(offsetY) <= viewportHeight ? Math.abs(offsetY) : this.y + offsetY ;
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
         this.cashDisplay();
 
     };
 
     this.handleInput = function(key) {
+
+    	console.log('offsety: ' + offsetY, 'player.y: ' + this.y);
+
     	// first, each move costs $$
     	this.cash = this.cash - 100;
     	if ( this.cash <= 0 ) {
@@ -66,10 +70,21 @@ var Player = function() {
               this.x = this.x === boardWidth - boardPieceWidth ? this.x : this.x + boardPieceWidth;
               break;
           case 'up':
-              this.y = this.y < 0 ? this.y : this.y - boardPieceHeight;
+          	if (this.y < 0 ) {
+          		this.y = this.y
+          	} else {
+          		this.y = this.y - boardPieceHeight;
+          		offsetY = offsetY + boardPieceHeight;
+          	}
               break;
           case 'down':
-              this.y = this.y === this.playerStartY ? this.y : this.y + boardPieceHeight;
+              if (this.y === this.playerStartY ) {
+              	this.y = this.y
+              } else {
+              	this.y = this.y + boardPieceHeight;
+              	offsetY = offsetY - boardPieceHeight;
+              }
+							this.y = this.y === this.playerStartY ? this.y : this.y + boardPieceHeight;
               break;
       }
     }

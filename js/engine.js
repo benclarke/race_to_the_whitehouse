@@ -9,17 +9,17 @@ var Engine = (function(global) {
         lastTime
 
     canvas.width = 1200;
-    canvas.height = 2075;
+    canvas.height = 600;
     canvas.tabIndex = 1;
 
     var wrapper = document.createElement('div')
     wrapper.className = 'wrapper';
     wrapper.setAttribute('id', 'wrapper')
     doc.body.appendChild(wrapper);
-    var whiteHouse = document.createElement('div');
-    whiteHouse.className = 'whitehouse';
-    whiteHouse.setAttribute('id', 'whitehouse');
-    wrapper.appendChild(whiteHouse);
+    // var whiteHouse = document.createElement('div');
+    // whiteHouse.className = 'whitehouse';
+    // whiteHouse.setAttribute('id', 'whitehouse');
+    // wrapper.appendChild(whiteHouse);
     wrapper.appendChild(canvas);
 
     function main() {
@@ -51,17 +51,17 @@ var Engine = (function(global) {
 
     function updateEntities(dt) {
 
-        addEnemies(dt);
+        // addEnemies(dt);
 
-        allPieces.forEach(function(piece) {
-            if (piece instanceof Array) {
-                for (var i = 0; i < piece.length; i++) {
-                    piece[i].update(dt);
-                };
-            } else {
-            piece.update(dt);
-            }
-        });
+        // allPieces.forEach(function(piece) {
+        //     if (piece instanceof Array) {
+        //         for (var i = 0; i < piece.length; i++) {
+        //             piece[i].update(dt);
+        //         };
+        //     } else {
+        //     piece.update(dt);
+        //     }
+        // });
 
         player.update(dt);
     }
@@ -69,7 +69,7 @@ var Engine = (function(global) {
     function render(dt) {
 
         //draw the gameboard
-        ctx.drawImage(Resources.get('images/gameboard.jpg'), 0, 0 ) ;
+        ctx.drawImage(Resources.get('images/gameboard.jpg'), 0, offsetY ) ;
 
         renderEntities();
 
@@ -84,15 +84,15 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allPieces.forEach(function(piece) {
-            if (piece instanceof Array) {
-                for (var i = 0; i < piece.length; i++) {
-                    piece[i].render();
-                };
-            } else {
-            piece.render();
-            }
-        });
+        // allPieces.forEach(function(piece) {
+        //     if (piece instanceof Array) {
+        //         for (var i = 0; i < piece.length; i++) {
+        //             piece[i].render();
+        //         };
+        //     } else {
+        //     piece.render();
+        //     }
+        // });
 
         player.render();
     }
@@ -134,7 +134,7 @@ var Engine = (function(global) {
         'images/enemy-bill.png'
     ]);
 
-    Resources.onReady(setup);
+    Resources.onReady(init);
 
 
     /* Assign the canvas' context object to the global variable (the window

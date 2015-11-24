@@ -4,9 +4,18 @@
 var boardWidth = 1200;
 var boardHeight = 2000;
 
+// size of viewport
+var viewportWidth = 1200;
+var viewportHeight = 600;
+
 // size of each square on the board
 var boardPieceWidth = 100;
 var boardPieceHeight = 100;
+
+//offsets
+var offsetX = 0;
+var offsetY = -boardHeight + viewportHeight;
+
 
 // width of the White House entrance
 var goalWidth = 3 * boardPieceWidth;
@@ -20,7 +29,7 @@ var allPieces = new Array;
 
 // Placed in function so that each win rebuilds the bad guys
 function createCharacters() {
-    player = new JebBush();
+    player = new MarcoRubio();
 
     var mitt = new MittGhost();
     var hillary = new Hillary();
