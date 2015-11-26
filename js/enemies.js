@@ -7,15 +7,15 @@ var MovingEnemy = function() {
     this.speed = 250 / player.enemySpeed;
 
     // comes at the player somewhere in front of them 1 - 3 squares
-    this.y = player.y - Math.floor(Math.random() * 10) * boardPieceHeight;
+    this.y = player.y - Math.floor(Math.random() * 4) * boardPieceHeight;
 
 	  // Draw the enemy on the screen, required method for game
 		this.render = function() {
-			this.vy = -boardHeight + this.y;
+			this.vy = this.y + offsetY;
 	    ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
 		};
 
-		this.hitSprite = 'images/enemy-gaffe.png';
+		this.hitSprite = 'images/blank-piece.png';
 
 		this.hit = false;
 
@@ -28,7 +28,7 @@ var Trump = function() {
 
 	this.sprite = 'images/enemy-trump.png';
 
-	this.damage = 5;
+	this.damage = 4;
 
 	this.damageType = 'cash';
 
@@ -94,7 +94,7 @@ var Hillary = function() {
 	this.sprite = 'images/enemy-hillary-right.png';
 
 	this.x = 0;
-	this.y = 0;
+	this.y = 300;
 
 	this.speed = 400;
 
@@ -131,60 +131,52 @@ var MittGhost = function() {
 	this.y = 0;
 
 	var boundaryX = 0;
-	var boundaryY = 2;
+	var boundaryY = 4;
 	var boundaryWidth = 10;
-	var boundaryHeight = 15;
+	var boundaryHeight = 12;
 
 	this.damageType = 'fatal';
 
-	var position = [];
-	position[0] = this.x;
-	position[1] = this.y;
+	var position = [this.x, this.y];
 
 	var speed = { 'x': 1 , 'y': 1};
+
+	var oldPosition = [this.x,this.y];
+
+	this.getNewPosition = function() {
+
+		oldPosition = [this.x, this.y];
+		position = randomPosition(boundaryWidth, boundaryHeight, boundaryY, boundaryY);
+
+    var x = Math.abs(oldPosition[0] - position[0]);
+    var y = Math.abs(oldPosition[1] - position[1]);
+    var speedVariable = Math.floor(Math.random() * 100 + 1);
+
+    speed.x = x / speedVariable;
+    speed.y = y / speedVariable;
+
+	}
 
 	this.update = function(dt) {
 		collision.call(this);
 
-		var oldPosition = [this.x, this.y];
-
 		// get random new point
-		function getNewPosition() {
-
-			position = randomPosition(boundaryWidth, boundaryHeight, boundaryY, boundaryY);
-
-			calcSpeed()
-
-			function calcSpeed() {
-			    var x = Math.abs(oldPosition[0] - position[0]);
-			    var y = Math.abs(oldPosition[1] - position[1]);
-			    var speedVariable = Math.floor(Math.random() * 100);
-
-			    speed.x = x / speedVariable;
-			    speed.y = y / speedVariable;
-
-			}
-		}
-
 		// need to find a match within 1 px, since final position may not === what is calculated with speed variable
 		if ((Math.abs(position[0] - this.x) < 1) && (Math.abs(position[1] - this.y) < 1)) {
-			getNewPosition();
+			this.getNewPosition();
 		}
 
 		if (position[0] > this.x) {
 			this.x += speed.x;
-
 		} else if (position[0] < this.x) {
 			this.x -= speed.x;
 		}
 
 		if (position[1] > this.y) {
 			this.y += speed.y;
-
 		} else if (position[1] < this.y) {
 			this.y -= speed.y;
 		}
-
 	} // end update function for Mitt
 } // end Mitt
 
@@ -196,7 +188,7 @@ var StationaryEnemy = function() {
 
 	// default boundaries for stationary enemies
 	this.boundaryX = 0;
-	this.boundaryY = 2;
+	this.boundaryY = 5;
 	this.boundaryWidth = 12;
 	this.boundaryHeight = 14;
 
@@ -215,11 +207,11 @@ var StationaryEnemy = function() {
 		collision.call(this);
 	}
 
-	this.sprite = 'images/enemy-hillary-right.png';
-	this.hitSprite = 'images/enemy-gaffe.png';
+	this.sprite = 'images/enemy-gaffe.png';
+	this.hitSprite = 'images/blank-piece.png';
 
 	this.render = function() {
-		this.vy = -boardHeight + this.y;
+		this.vy = this.y + offsetY;
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
 	}
 
@@ -232,26 +224,30 @@ var Gaffe = function() {
 
 	this.damageType = 'position';
 
-	this.sprite = 'images/ben-carson.png';
+	this.sprite = 'images/enemy-gaffe.png';
+	this.hitSprite = 'images/enemy-gaffe-hit.png';
 
 }
 
 var SkeletonClosetBlack = function() {
 	StationaryEnemy.call(this);
 
-	this.damageType = 'fatal';
+	this.damageType = 'position';
+	this.damage = 3;
 
 	this.sprite = 'images/enemy-skeleton-black.png';
+	this.hitSprite = 'images/enemy-skeleton-black-hit.png';
 
 }
 
 var SkeletonClosetRed = function() {
 	StationaryEnemy.call(this);
 
-	this.damage = 3;
+	this.damage = 2;
 
 	this.damageType = 'cash';
 
 	this.sprite = 'images/enemy-skeleton-red.png';
+	this.hitSprite = 'images/enemy-skeleton-red-hit.png';
 
 }

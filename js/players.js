@@ -4,13 +4,14 @@ var Player = function() {
 
     // initial player status
     this.win = false;
+    this.lives = 1;
 
     // default position
-    this.playerStartX = boardWidth - 1 * boardPieceWidth;
-    this.playerStartY = (boardHeight / boardPieceHeight - 2) * boardPieceHeight;
+    this.playerStartY = boardHeight - 2 * boardPieceHeight;
 
-    this.x = this.playerStartX;
     this.y = this.playerStartY;
+
+    // this.vy = this.y + offsetY;
 
 		//player size -- everyone is 0 except bush
 		this.iconSize = 0;
@@ -21,45 +22,61 @@ var Player = function() {
 		//enemy speed for player
 		this.enemySpeed = 1;
 
+		// default amount of each goodie/enemy stationary piece
+		this.inflame = 2;
+		this.uschamber = 5;
+
+		this.skeletons = 4;
+		this.gaffes = 4;
+		this.koch = true;
+
 		//cash on hand
-		var initialCash = 100000;
-		this.cash = initialCash;
+		this.initialCash = 20000;
+		this.cash = this.initialCash;
 
 		// what happens with each frame
     this.update = function(dt) {
-
-    	if (player.x <= goalWidth && player.y < 0) {
-    		youWin();
-	    	createCharacters();
+    	if ( this.cash <= 0 ) {
+    		this.startOver();
     	}
     };
 
 		this.cashDisplay = function() {
 			// track player cash onscreen
-			cashX = this.x + boardPieceWidth/2;
-			cashY = this.y + 1.5 * boardPieceHeight;
-			ctx.fillStyle = this.cash > 500 ? 'white' : 'red';
+			cashX = this.x + this.iconSize * boardPieceWidth/2 + boardPieceWidth/2;
+			cashY = this.vy + this.iconSize * 1.25 * boardPieceHeight + 1.5 * boardPieceHeight;
+			ctx.fillStyle = this.cash > 500 ? 'black' : 'red';
 			ctx.font = '20px Arial';
 			ctx.textAlign = 'center';
 			ctx.fillText('Cash: $' + player.cash, cashX, cashY);
 		}
 
     this.render = function() {
-    		this.vy = Math.abs(offsetY) <= viewportHeight ? Math.abs(offsetY) : this.y + offsetY ;
+    		this.vy = this.y + offsetY ;
         ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
         this.cashDisplay();
 
     };
 
-    this.handleInput = function(key) {
+    this.setOffsetY = function(direction) {
+    	if ( this.y > boardHeight - 4 * boardPieceHeight) {
+    		offsetY = initialOffsetY;
+    	}
+    	else if (this.y < viewportHeight - 2 * boardPieceHeight) {
+    		offsetY = 0;
+    	}
+			else if (direction === 'up') {
+				offsetY = offsetY + boardPieceHeight;
+    	}
+    	else if (direction === 'down') {
+    		offsetY = offsetY - boardPieceHeight;
+    	}
 
-    	console.log('offsety: ' + offsetY, 'player.y: ' + this.y);
+    }
+    this.handleInput = function(key) {
 
     	// first, each move costs $$
     	this.cash = this.cash - 100;
-    	if ( this.cash <= 0 ) {
-    		createCharacters();
-    	}
 
       // handling keyboard input
       switch(key) {
@@ -70,30 +87,70 @@ var Player = function() {
               this.x = this.x === boardWidth - boardPieceWidth ? this.x : this.x + boardPieceWidth;
               break;
           case 'up':
-          	if (this.y < 0 ) {
-          		this.y = this.y
-          	} else {
-          		this.y = this.y - boardPieceHeight;
-          		offsetY = offsetY + boardPieceHeight;
-          	}
-              break;
+	          	if (this.y === 300 && this.x <= 3 * boardPieceWidth){
+	          		this.win = true;
+	          		this.startOver();
+	          	}
+	          	if (this.y === 300) {
+	          		this.y = this.y
+	          	}	else {
+	          		this.y = this.y - boardPieceHeight;
+	          		this.setOffsetY('up');
+	          	}
+	              break;
           case 'down':
-              if (this.y === this.playerStartY ) {
-              	this.y = this.y
-              } else {
-              	this.y = this.y + boardPieceHeight;
-              	offsetY = offsetY - boardPieceHeight;
-              }
-							this.y = this.y === this.playerStartY ? this.y : this.y + boardPieceHeight;
-              break;
+	            if (this.y === this.playerStartY) {
+	            	this.y = this.y;
+	            	offsetY = initialOffsetY;
+	            } else {
+	            	this.y = this.y + boardPieceHeight;
+	            	this.setOffsetY('down');
+            }
+	            break;
       }
+
+
     }
+
     this.startOver = function() {
-    	this.x = this.rightness * boardPieceWidth;
-    	this.y = this.playerStartY;
-    	this.cash = initialCash;
+    	this.lives--;
+
+  		createCharacters();
+  		offsetY = initialOffsetY;
+  		player.x = player.rightness * boardPieceWidth;
+  		player.y = this.playerStartY;
+  		player.cash = player.initialCash;
+
+  		if (this.win == true) {
+    		this.render = function() {
+    			this.vy = this.playerStartY + offsetY - 4 * boardPieceHeight + player.iconSize * boardPieceHeight;
+			    ctx.drawImage(Resources.get('images/youWin.png'), 0, this.vy);
+			    ctx.drawImage(Resources.get('images/playAgain.png'), 550, this.vy + 470);
+			    document.getElementById('wrapper').addEventListener('click', playAgain);
+			  }
+			  this.handleInput = function() {};
+  		}
+  		else if (this.lives <= 0) {
+    		this.render = function() {
+    			this.vy = this.playerStartY + offsetY - 5 * boardPieceHeight + player.iconSize * boardPieceHeight;
+			    ctx.drawImage(Resources.get('images/gameover.png'), 0, this.vy);
+			    ctx.drawImage(Resources.get('images/playAgain.png'), 550, this.vy + 470);
+			    document.getElementById('wrapper').addEventListener('click', playAgain);
+    		}
+    		this.handleInput = function() {};
+  		}
+
+  		function playAgain() {
+  			if (event.clientX > 550 && event.clientX < 750) {
+  				if (event.clientY > 470 && event.clientY < 570) {
+  					location.reload();
+  				}
+  			}
+  		}
+
     }
-}
+
+} //end generic Player object
 
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
@@ -113,23 +170,10 @@ var BenCarson = function() {
 
 	this.sprite = 'images/ben-carson.png';
 
-	this.enemySpeed = 0.75;
-
 	this.rightness = 10;
 
-	// inital rightward position
-	this.x = this.rightness * boardPieceWidth;
+  this.x = this.rightness * boardPieceWidth;
 
-	var initialCash = 2000;
-
-	this.cash = initialCash;
-
-	this.uschamber = 0;
-
-	this.koch = false;
-
-	this.gaffes = 5;
-	this.skeletons = 5;
 }
 
 // Carly Fiorina
@@ -138,25 +182,10 @@ var CarlyFiorina = function() {
 
 	this.sprite = 'images/carly-fiorina.png';
 
-	this.speed = 1;
-	this.enemySpeed = 0.90;
-
 	this.rightness = 6;
 
-	// inital rightward position
-	this.x = this.rightness * boardPieceWidth;
+  this.x = this.rightness * boardPieceWidth;
 
-	var initialCash = 2000;
-
-	this.cash = initialCash;
-
-	this.uschamber = 8;
-
-	this.koch = false;
-
-	this.skeletons = 3;
-
-	this.gaffes = 2;
 }
 
 
@@ -171,35 +200,16 @@ var JebBush = function() {
 
 	this.rightness = 2;
 
-	this.x = this.rightness * boardPieceWidth;
+  this.x = this.rightness * boardPieceWidth;
 
 	// icon is bigger, so start higher up by one piece
-	this.playerStartY = boardHeight - 4 * boardPieceHeight;
+	this.playerStartY = boardHeight - 3 * boardPieceHeight;
 	this.y = this.playerStartY;
 	this.iconSize = 1;
 
-	var initialCash = 4000;
+	this.initialCash = 5000;
 
-	this.cash = initialCash;
-
-	this.uschamber = 8;
-
-	this.koch = false;
-
-	this.skeletons = 2;
-
-	this.gaffes = 3;
-
-	// adjust cash display down for big Jeb
-	this.cashDisplay = function() {
-		// track player cash onscreen
-		cashX = this.x + boardPieceWidth;
-		cashY = this.y + 3 * boardPieceHeight;
-		ctx.fillStyle = this.cash > 500 ? 'white' : 'red';
-		ctx.font = '20px Arial';
-		ctx.textAlign = 'center';
-		ctx.fillText('Cash: $' + player.cash, cashX, cashY);
-	}
+	this.cash = this.initialCash;
 
 }
 
@@ -213,12 +223,8 @@ var MarcoRubio = function() {
 
 	this.x = this.rightness * boardPieceWidth;
 
-	this.uschamber = 10;
-
-	this.koch = true;
-
-	this.skeletons = 5;
-	this.gaffes = 5;
+	this.initialCash = 3000;
+	this.cash = this.initialCash;
 
 }
 // Ted Cruz
@@ -232,12 +238,8 @@ var TedCruz = function() {
 
 	this.x = this.rightness * boardPieceWidth;
 
-	this.uschamber = 8;
-
-	this.koch = true;
-
-	this.skeletons = 4;
-	this.gaffes = 2;
+	this.initialCash = 3000;
+	this.cash = this.initialCash;
 
 }
 

@@ -5,13 +5,14 @@ var StationaryGoodie = function() {
 	this.pieceType = 'stationary';
 
 	this.render = function() {
-	    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+		this.vy = this.y + offsetY;
+	  ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
 	};
 
 	this.update = function(dt) {
 		collision.call(this);
 	}
-	this.hitSprite = 'images/enemy-gaffe.png';
+	this.hitSprite = 'images/blank-piece.png';
 }
 
 var Koch = function() {
@@ -24,7 +25,7 @@ var Koch = function() {
 	this.goodieType = 'cash';
 
 	this.boundaryX = 8;
-	this.boundaryY = 4;
+	this.boundaryY = 6;
 	this.boundaryWidth = 4;
 	this.boundaryHeight = 10;
 
@@ -46,9 +47,9 @@ var Uscc = function() {
 	this.goodieType = 'cash';
 
 	this.boundaryX = 0;
-	this.boundaryY = 0;
+	this.boundaryY = 3;
 	this.boundaryWidth = 9;
-	this.boundaryHeight = 15;
+	this.boundaryHeight = 14;
 
 	var position = randomPosition(this.boundaryWidth, this.boundaryHeight, this.boundaryX, this.boundaryY);
 	this.x = position[0];
@@ -56,6 +57,27 @@ var Uscc = function() {
 
 
 }
+
+// inflammatory statement
+var Inflame = function() {
+	StationaryGoodie.call(this);
+
+	this.goodieType = 'position';
+	this.goodie = 3;
+
+	this.sprite = 'images/goodie-inflame.png';
+
+	this.boundaryX = 5;
+	this.boundaryY = 7;
+	this.boundaryWidth = 7;
+	this.boundaryHeight = 6;
+
+	var position = randomPosition(this.boundaryWidth, this.boundaryHeight, this.boundaryX, this.boundaryY);
+	this.x = position[0];
+	this.y = position[1];
+
+}
+
 
 var Reagan = function() {
 	MovingEnemy.call(this);
@@ -65,9 +87,9 @@ var Reagan = function() {
 	this.sprite = 'images/goodie-reagan.png';
 
 	var boundaryX = 0;
-	var boundaryY = 0;
+	var boundaryY = 3;
 	var boundaryWidth = 10;
-	var boundaryHeight = 15;
+	var boundaryHeight = 14;
 
 	this.update = function(dt) {
 		collision.call(this);

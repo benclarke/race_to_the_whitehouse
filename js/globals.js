@@ -1,11 +1,14 @@
 //global variables for game board, etc.
 
+// game over status
+var gameover = false;
+
 // size of the game board
-var boardWidth = 1200;
-var boardHeight = 2000;
+var boardWidth = 1300;
+var boardHeight = 2300;
 
 // size of viewport
-var viewportWidth = 1200;
+var viewportWidth = 1300;
 var viewportHeight = 600;
 
 // size of each square on the board
@@ -14,8 +17,8 @@ var boardPieceHeight = 100;
 
 //offsets
 var offsetX = 0;
-var offsetY = -boardHeight + viewportHeight;
-
+var initialOffsetY = -boardHeight + viewportHeight;
+var offsetY = initialOffsetY;
 
 // width of the White House entrance
 var goalWidth = 3 * boardPieceWidth;
@@ -23,36 +26,43 @@ var goalWidth = 3 * boardPieceWidth;
 // for adding new enemies at different frequencies
 var count = 0;
 
-// global variable containing all Enemies for each round
+// all enemies and goodies that are added once at the beginning of game play
 var allPieces = new Array;
+
+// all enemies generated after start of game play
+var addedEnemies = new Array;
 
 
 // Placed in function so that each win rebuilds the bad guys
 function createCharacters() {
-    player = new MarcoRubio();
-
     var mitt = new MittGhost();
+
     var hillary = new Hillary();
+
     var skeletonBlack = new SkeletonClosetBlack();
+
     var koch = new Koch();
 
     var skeletonsRed = piecesArray(player.skeletons,SkeletonClosetRed);
+
     var gaffes = piecesArray(player.gaffes,Gaffe);
+
+    var inflame = piecesArray(player.inflame,Inflame);
+
     var usccs = piecesArray(player.uschamber,Uscc);
 
-    function piecesArray(pieceQty, constructorType){
-        var pieces = [];
-        for (var i = 0; i < pieceQty; i++) {
-            var piece = new constructorType();
-            pieces.push(piece);
-          };
-        return pieces;
-    };
-
-    allPieces = [mitt, hillary, skeletonBlack, skeletonsRed, koch, gaffes, usccs];
+    allPieces = [skeletonBlack, koch, skeletonsRed, gaffes, inflame, usccs];
 
 }
 
+function piecesArray(pieceQty, constructorType){
+    var pieces = [];
+    for (var i = 0; i < pieceQty; i++) {
+        var piece = new constructorType();
+        piece.index = pieces.push(piece);
+      };
+    return pieces;
+};
 
 function addEnemies(dt) {
     count++;
@@ -65,18 +75,24 @@ function addEnemies(dt) {
     var generalElection = player.y < 10 * boardPieceHeight ? true : false;
     var billTime = Math.floor(Math.random() * 200);
 
+    var trump, rightWingNut, bill;
+
     if (primaries === true && count % trumpTime === 0 ) {
         trump = new Trump();
-        trump.index = allPieces.push(trump);
+        addedEnemies.push(trump);
+        if (addedEnemies.length > 30) {addedEnemies.shift();}
+        console.log('addedEnemies length: ' + addedEnemies.length);
     }
-    if (count % (rightwardness + 20) == 0 ) {
+    if (count % (rightwardness * 10) == 0 ) {
         rightWingNut = new RightWingNut();
         rightWingNut.speed = 2000 / rightwardness;
-        rightWingNut.index = allPieces.push(rightWingNut);
+        addedEnemies.push(rightWingNut);
+        if (addedEnemies.length > 30) {addedEnemies.shift();}
     }
     if (generalElection === true && count % billTime === 0) {
-            bill = new Bill();
-            bill.index = allPieces.push(bill);
+        bill = new Bill();
+        addedEnemies.push(bill);
+        if (addedEnemies.length > 30) {addedEnemies.shift();}
     }
 
 }
@@ -91,3 +107,4 @@ randomPosition = function(boundaryWidth, boundaryHeight, boundaryX, boundaryY) {
 function youWin() {
     console.log('you win');
 }
+

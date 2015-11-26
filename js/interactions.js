@@ -20,6 +20,7 @@ function collision() {
 		// if player position is witin an area radiating from this position
 		if (((this.centerX >= playerCenterX - give) && (this.centerX <= playerCenterX + give)) && ((this.centerY >= playerCenterY - give) && (this.centerY <= playerCenterY + give))) {
 			this.hit = true;
+			console.log('hit Mitt');
 		}
 	}
 
@@ -35,33 +36,41 @@ function collision() {
   if (this.hit === true) {
 		// if enemy is fatal, start over
 		if (this.damageType == 'fatal') {
-			createCharacters();
+			player.startOver();
 		}
 		//if enemy takes $$, subtract from cash
-		else if (this.damageType == 'cash') {
+		else if (this.damageType === 'cash') {
 			player.cash = player.cash - 100 * this.damage + 100; // add $100 to compensate for move
 		}
 		// if goodie gives $$, add to cash
-		else if (this.goodieType == 'cash') {
+		else if (this.goodieType === 'cash') {
 			player.cash = player.cash + 100 * this.goodie + 100; // add $100 to compensate for move
 		}
 		// move back player as many spaces as possible within damage, and not off bottom of board
-		else if (this.damageType == 'position') {
+		else if (this.damageType === 'position') {
 			for (var i = this.damage; i > 0; i--) {
-				if (player.playerStartY < player.y + i * boardPieceHeight ) {
-					this.hit = false;
-					console.log('too close to bottom');
-				} else {
-					player.y = player.y + i * boardPieceHeight;
-					console.log(i,i);
-					this.hit = false;
-					break;
+				if (player.y < player.playerStartY) {
+					player.y = player.y + boardPieceHeight;
+					player.setOffsetY('down');
+				}
+			};
+		}
+		else if (this.goodieType === 'position') {
+			for (var i = this.goodie; i > 0; i--) {
+				if (player.y > 300) {
+					player.y = player.y - boardPieceHeight;
+					player.setOffsetY('up');
 				}
 			};
 		}
 		this.update = function(){};
-		this.sprite = this.hitSprite;
 		this.hit = false;
-  }
+		this.sprite = this.hitSprite;
+		var piece = this;
+		window.setTimeout(fadeOut, 2500);
 
+		function fadeOut() {
+			piece.sprite = 'images/blank-piece.png';
+		}
+  }
 }
