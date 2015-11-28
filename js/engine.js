@@ -9,7 +9,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 1300;
-    canvas.height = 600;
+    canvas.height = 700;
     canvas.tabIndex = 1;
 
     var wrapper = document.createElement('div')
@@ -17,10 +17,6 @@ var Engine = (function(global) {
     wrapper.setAttribute('id', 'wrapper')
     doc.body.appendChild(wrapper);
     wrapper.appendChild(canvas);
-
-    if (gameover === true) {
-        gameOver();
-    }
 
     function main() {
 
@@ -168,7 +164,7 @@ var Engine = (function(global) {
             ctx.drawImage(Resources.get('images/marco-rubio.png'), 980, 240);
             ctx.drawImage(Resources.get('images/jeb-bush.png'), 1150, 240, 100, 150);
 
-            if (go == true) {
+            if (go === true) {
                 ctx.drawImage(Resources.get('images/go-button.jpg'), 750, 460);
                 document.getElementById('wrapper').addEventListener('click', startGame);
             }
@@ -182,35 +178,29 @@ var Engine = (function(global) {
             if (event.clientY > 250 && event.clientY < 425) {
                 if (event.clientX > 1150) {
                     player = new JebBush();
-                    console.log(player);
                     drawPlayers(true);
                     ctx.drawImage(Resources.get('images/jeb-bush-selected.png'), 1150, 240, 100, 150);
                 }
                 else if (event.clientX > 980) {
                     player = new MarcoRubio();
-                    console.log(player);
                     drawPlayers(true);
                     ctx.drawImage(Resources.get('images/marco-rubio-selected.png'), 980, 240);
                 }
                 else if (event.clientX > 820) {
                     player = new CarlyFiorina();
-                    console.log(player);
                     drawPlayers(true);
                     ctx.drawImage(Resources.get('images/carly-fiorina-selected.png'), 820, 240);
                 }
                 else if (event.clientX > 660) {
                     player = new TedCruz();
-                    console.log(player);
                     drawPlayers(true);
                     ctx.drawImage(Resources.get('images/ted-cruz-selected.png'), 660, 240);
 
                 }
                 else if (event.clientX > 510) {
                     player = new BenCarson();
-                    console.log(player);
                     drawPlayers(true);
                     ctx.drawImage(Resources.get('images/ben-carson-selected.png'), 510, 240);
-
                 }
 
             }
@@ -223,10 +213,6 @@ var Engine = (function(global) {
                 }
             }
         }
-    }
-
-    function gameOver() {
-        ctx.drawImage(Resources.get('images/gameover.png'), 0, 0);
     }
 
     global.ctx = ctx;

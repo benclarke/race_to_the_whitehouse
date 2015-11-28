@@ -32,8 +32,15 @@ function collision() {
 		}
 	}
 
-  //if we have a collision, then...
-  if (this.hit === true) {
+  //if we have a collision and player hasn't won or run out of lives, then...
+  if (this.hit === true && player.win === false && player.lives > 0 ) {
+
+  	// play sound effect
+  	if (document.getElementById(this.name)) {
+  		audio = document.getElementById(this.name);
+  		audio.play();
+  	}
+
 		// if enemy is fatal, start over
 		if (this.damageType == 'fatal') {
 			player.startOver();
@@ -54,7 +61,7 @@ function collision() {
 					player.setOffsetY('down');
 				}
 			};
-		}
+		} // for goodies that jump you ahead
 		else if (this.goodieType === 'position') {
 			for (var i = this.goodie; i > 0; i--) {
 				if (player.y > 300) {
@@ -63,6 +70,7 @@ function collision() {
 				}
 			};
 		}
+		// no longer update the piece
 		this.update = function(){};
 		this.hit = false;
 		this.sprite = this.hitSprite;

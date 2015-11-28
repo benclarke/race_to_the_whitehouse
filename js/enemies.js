@@ -3,11 +3,24 @@ var MovingEnemy = function() {
 
 		this.pieceType = 'moving';
 
+		this.name = 'movingEnemy';
+
     // this enemy's speed
     this.speed = 250 / player.enemySpeed;
 
     // comes at the player somewhere in front of them 1 - 3 squares
     this.y = player.y - Math.floor(Math.random() * 4) * boardPieceHeight;
+
+    this.update = function(dt) {
+    	if (this.x < boardWidth && this.direction == 'left') {
+    		this.x = this.x + dt * this.speed;
+    	}
+    	else if (this.x > -boardPieceWidth && this.direction == 'right') {
+				this.x = this.x - dt * this.speed;
+			}
+
+    	collision.call(this);
+    }
 
 	  // Draw the enemy on the screen, required method for game
 		this.render = function() {
@@ -19,12 +32,13 @@ var MovingEnemy = function() {
 
 		this.hit = false;
 
-
 };
 
 // Trump
 var Trump = function() {
 	MovingEnemy.call(this);
+
+	this.name = 'trump';
 
 	this.sprite = 'images/enemy-trump.png';
 
@@ -34,21 +48,15 @@ var Trump = function() {
 
 	this.x = -boardPieceWidth;
 
-	this.update = function(dt) {
-		if (this.x < boardWidth) {
-			this.x = this.x + dt * this.speed;
-		}
+	this.direction = 'left';
 
-		collision.call(this);
-
-	}
-
-} // end Trump
+}
 
 // Right Wing Nut
-
 var RightWingNut = function() {
 	MovingEnemy.call(this);
+
+	this.name = 'nut';
 
 	this.sprite = 'images/enemy-nut.png';
 
@@ -58,39 +66,25 @@ var RightWingNut = function() {
 
 	this.x = boardWidth;
 
-
-	this.update = function(dt) {
-		if (this.x > -boardPieceWidth) {
-			this.x = this.x - dt * this.speed;
-		}
-
-		collision.call(this);
-
-	}
+	this.direction = 'right';
 
 }
 
+// Bill Clinton
 var Bill = function() {
 	MovingEnemy.call(this);
+	this.name = 'bill';
 	this.sprite = 'images/enemy-bill.png';
 	this.damage = 2;
 	this.damageType = 'position';
 	this.x = 0;
-
-	this.update = function(dt) {
-		if (this.x < boardWidth) {
-			this.x = this.x + dt * this.speed;
-		}
-
-		collision.call(this);
-
-	}
+	this.direction = 'left';
 
 }
 
 var Hillary = function() {
 	MovingEnemy.call(this);
-
+	this.name = 'hillary';
 	this.sprite = 'images/enemy-hillary-right.png';
 
 	this.x = 0;
@@ -122,10 +116,12 @@ var Hillary = function() {
 
 var MittGhost = function() {
 	MovingEnemy.call(this);
-
+	this.name = 'mitt';
 	this.pieceType = 'randomMoving';
 
 	this.sprite = 'images/enemy-romney.png';
+
+	this.damageType = 'fatal';
 
 	this.x = 0;
 	this.y = 0;
@@ -135,14 +131,12 @@ var MittGhost = function() {
 	var boundaryWidth = 10;
 	var boundaryHeight = 12;
 
-	this.damageType = 'fatal';
-
 	var position = [this.x, this.y];
+	var oldPosition = [this.x,this.y];
 
 	var speed = { 'x': 1 , 'y': 1};
 
-	var oldPosition = [this.x,this.y];
-
+	// for getting a new random position for Mitt to float to
 	this.getNewPosition = function() {
 
 		oldPosition = [this.x, this.y];
@@ -166,6 +160,7 @@ var MittGhost = function() {
 			this.getNewPosition();
 		}
 
+		// find velocity of movement between random points
 		if (position[0] > this.x) {
 			this.x += speed.x;
 		} else if (position[0] < this.x) {
@@ -183,6 +178,8 @@ var MittGhost = function() {
 var StationaryEnemy = function() {
 
 	this.pieceType = 'stationary';
+
+	this.name = 'stationaryEnemy';
 
 	this.hit = false;
 
@@ -220,6 +217,8 @@ var StationaryEnemy = function() {
 var Gaffe = function() {
 	StationaryEnemy.call(this);
 
+	this.name = 'gaffe';
+
 	this.damage = 3;
 
 	this.damageType = 'position';
@@ -232,6 +231,8 @@ var Gaffe = function() {
 var SkeletonClosetBlack = function() {
 	StationaryEnemy.call(this);
 
+	this.name = 'skeletonBlack';
+
 	this.damageType = 'position';
 	this.damage = 3;
 
@@ -242,6 +243,8 @@ var SkeletonClosetBlack = function() {
 
 var SkeletonClosetRed = function() {
 	StationaryEnemy.call(this);
+
+	this.name = 'skeletonRed';
 
 	this.damage = 2;
 

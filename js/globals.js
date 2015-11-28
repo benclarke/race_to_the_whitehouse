@@ -1,8 +1,5 @@
 //global variables for game board, etc.
 
-// game over status
-var gameover = false;
-
 // size of the game board
 var boardWidth = 1300;
 var boardHeight = 2300;
@@ -16,7 +13,6 @@ var boardPieceWidth = 100;
 var boardPieceHeight = 100;
 
 //offsets
-var offsetX = 0;
 var initialOffsetY = -boardHeight + viewportHeight;
 var offsetY = initialOffsetY;
 
@@ -31,6 +27,9 @@ var allPieces = new Array;
 
 // all enemies generated after start of game play
 var addedEnemies = new Array;
+
+// for sound effects
+var audio;
 
 
 // Placed in function so that each win rebuilds the bad guys
@@ -51,7 +50,7 @@ function createCharacters() {
 
     var usccs = piecesArray(player.uschamber,Uscc);
 
-    allPieces = [skeletonBlack, koch, skeletonsRed, gaffes, inflame, usccs];
+    allPieces = [mitt, hillary, skeletonBlack, koch, skeletonsRed, gaffes, inflame, usccs];
 
 }
 
@@ -70,10 +69,10 @@ function addEnemies(dt) {
     var rightwardness = player.x / boardPieceWidth + 1;
 
     var primaries = player.y >= 10 * boardPieceHeight ? true : false;
-    var trumpTime = Math.floor(Math.random() * 1000 );
+    var trumpTime = Math.floor(Math.random() * 500  + 1);
 
-    var generalElection = player.y < 10 * boardPieceHeight ? true : false;
-    var billTime = Math.floor(Math.random() * 200);
+    var generalElection = player.y < 9 * boardPieceHeight ? true : false;
+    var billTime = Math.floor(Math.random() * 200 + 1);
 
     var trump, rightWingNut, bill;
 
@@ -81,7 +80,6 @@ function addEnemies(dt) {
         trump = new Trump();
         addedEnemies.push(trump);
         if (addedEnemies.length > 30) {addedEnemies.shift();}
-        console.log('addedEnemies length: ' + addedEnemies.length);
     }
     if (count % (rightwardness * 10) == 0 ) {
         rightWingNut = new RightWingNut();
@@ -104,7 +102,4 @@ randomPosition = function(boundaryWidth, boundaryHeight, boundaryX, boundaryY) {
 	return [x,y];
 }
 
-function youWin() {
-    console.log('you win');
-}
 

@@ -1,10 +1,10 @@
-//Player
 
+//Generic Player object
 var Player = function() {
 
     // initial player status
     this.win = false;
-    this.lives = 1;
+    this.lives = 2;
 
     // default position
     this.playerStartY = boardHeight - 2 * boardPieceHeight;
@@ -24,40 +24,44 @@ var Player = function() {
 
 		// default amount of each goodie/enemy stationary piece
 		this.inflame = 2;
-		this.uschamber = 5;
+		this.uschamber = 6;
 
-		this.skeletons = 4;
-		this.gaffes = 4;
+		this.skeletons = 5;
+		this.gaffes = 5;
 		this.koch = true;
 
 		//cash on hand
-		this.initialCash = 20000;
+		this.initialCash = 2000;
 		this.cash = this.initialCash;
 
 		// what happens with each frame
     this.update = function(dt) {
-    	if ( this.cash <= 0 ) {
+    	if ( this.cash < 0 ) {
     		this.startOver();
     	}
     };
 
-		this.cashDisplay = function() {
+		this.statusDisplay = function() {
 			// track player cash onscreen
-			cashX = this.x + this.iconSize * boardPieceWidth/2 + boardPieceWidth/2;
-			cashY = this.vy + this.iconSize * 1.25 * boardPieceHeight + 1.5 * boardPieceHeight;
+			ctx.fillStyle = 'white';
+			ctx.fillRect(0,600,1300,100);
 			ctx.fillStyle = this.cash > 500 ? 'black' : 'red';
-			ctx.font = '20px Arial';
-			ctx.textAlign = 'center';
-			ctx.fillText('Cash: $' + player.cash, cashX, cashY);
+			ctx.font = '24px Arial';
+			ctx.fillText('Campaign Cash: ' + player.cash, 1000, 630);
+
+			//track lives left
+			ctx.fillStyle = 'black';
+			ctx.fillText('Lives Remaining: ' + player.lives, 20, 630);
 		}
 
     this.render = function() {
     		this.vy = this.y + offsetY ;
         ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
-        this.cashDisplay();
+        this.statusDisplay();
 
     };
 
+    //handle the scrolling screen positioning
     this.setOffsetY = function(direction) {
     	if ( this.y > boardHeight - 4 * boardPieceHeight) {
     		offsetY = initialOffsetY;
@@ -114,32 +118,31 @@ var Player = function() {
 
     this.startOver = function() {
     	this.lives--;
+    	this.statusDisplay();
+    	console.log('lives ' + this.lives, 'cash ' + this.cash);
+    	offsetY = initialOffsetY;
+    	this.x = this.rightness * boardPieceWidth;
+    	this.y = this.playerStartY;
 
-  		createCharacters();
-  		offsetY = initialOffsetY;
-  		player.x = player.rightness * boardPieceWidth;
-  		player.y = this.playerStartY;
-  		player.cash = player.initialCash;
+    	if (this.win != true && this.lives > 0) {
+    		createCharacters();
+    		player.cash = player.initialCash;
+    	}
 
-  		if (this.win == true) {
+  		if (this.win === true || this.lives <= 0) {
     		this.render = function() {
-    			this.vy = this.playerStartY + offsetY - 4 * boardPieceHeight + player.iconSize * boardPieceHeight;
-			    ctx.drawImage(Resources.get('images/youWin.png'), 0, this.vy);
-			    ctx.drawImage(Resources.get('images/playAgain.png'), 550, this.vy + 470);
+    			this.cash = 0;
+    			this.lives = 0;
+    			var screenImg = this.win === true ? 'images/youWin.png' : 'images/gameover.png';
+			    ctx.drawImage(Resources.get(screenImg), 0, 0);
+			    ctx.drawImage(Resources.get('images/playAgain.png'), 550, 470);
 			    document.getElementById('wrapper').addEventListener('click', playAgain);
 			  }
+
+			  // just kill all keyboard input
 			  this.handleInput = function() {};
   		}
-  		else if (this.lives <= 0) {
-    		this.render = function() {
-    			this.vy = this.playerStartY + offsetY - 5 * boardPieceHeight + player.iconSize * boardPieceHeight;
-			    ctx.drawImage(Resources.get('images/gameover.png'), 0, this.vy);
-			    ctx.drawImage(Resources.get('images/playAgain.png'), 550, this.vy + 470);
-			    document.getElementById('wrapper').addEventListener('click', playAgain);
-    		}
-    		this.handleInput = function() {};
-  		}
-
+  		// the Play Again button
   		function playAgain() {
   			if (event.clientX > 550 && event.clientX < 750) {
   				if (event.clientY > 470 && event.clientY < 570) {
@@ -194,9 +197,6 @@ var JebBush = function() {
 	Player.call(this);
 
 	this.sprite = 'images/jeb-bush.png';
-
-	this.speed = 1;
-	this.enemySpeed = 1;
 
 	this.rightness = 2;
 
