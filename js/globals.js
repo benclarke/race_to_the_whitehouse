@@ -1,4 +1,4 @@
-//global variables for game board, etc.
+//global variables and functions for game board, etc.
 
 // size of the game board
 var boardWidth = 1300;
@@ -23,34 +23,32 @@ var goalWidth = 3 * boardPieceWidth;
 var count = 0;
 
 // all enemies and goodies that are added once at the beginning of game play
-var allPieces = new Array;
+var allPieces = [];
 
 // all enemies generated after start of game play
-var addedEnemies = new Array;
+var addedEnemies = [];
 
 // for sound effects
 var audio;
 
 
-// Placed in function so that each win rebuilds the bad guys
+// for enemies and goodies added at start of game play
 function createCharacters() {
+
+    //add Mitt and Hil
     var mitt = new MittGhost();
 
     var hillary = new Hillary();
 
-    var skeletonBlack = new SkeletonClosetBlack();
+    allPieces = [mitt, hillary];
 
-    var koch = new Koch();
-
-    var skeletonsRed = piecesArray(player.skeletons,SkeletonClosetRed);
-
-    var gaffes = piecesArray(player.gaffes,Gaffe);
-
-    var inflame = piecesArray(player.inflame,Inflame);
-
-    var usccs = piecesArray(player.uschamber,Uscc);
-
-    allPieces = [mitt, hillary, skeletonBlack, koch, skeletonsRed, gaffes, inflame, usccs];
+    // add all randomly placed pieces, goodies and enemies
+    piecesArray(1, SkeletonClosetBlack);
+    piecesArray(1, Koch);
+    piecesArray(player.skeletons,SkeletonClosetRed);
+    piecesArray(player.gaffes,Gaffe);
+    piecesArray(player.inflame,Inflame);
+    piecesArray(player.uschamber,Uscc);
 
 }
 
@@ -58,11 +56,16 @@ function piecesArray(pieceQty, constructorType){
     var pieces = [];
     for (var i = 0; i < pieceQty; i++) {
         var piece = new constructorType();
-        piece.index = pieces.push(piece);
-      };
+        var position = randomPosition(piece.boundaryWidth, piece.boundaryHeight, piece.boundaryX, piece.boundaryY);
+        piece.x = position[0];
+        piece.y = position[1];
+        console.log(piece);
+        piece.index = allPieces.push(piece);
+      }
     return pieces;
-};
+}
 
+// for enemies that are added during game play
 function addEnemies(dt) {
     count++;
 
@@ -81,7 +84,7 @@ function addEnemies(dt) {
         addedEnemies.push(trump);
         if (addedEnemies.length > 30) {addedEnemies.shift();}
     }
-    if (count % (rightwardness * 10) == 0 ) {
+    if (count % (rightwardness * 10) === 0 ) {
         rightWingNut = new RightWingNut();
         rightWingNut.speed = 2000 / rightwardness;
         addedEnemies.push(rightWingNut);
@@ -96,10 +99,9 @@ function addEnemies(dt) {
 }
 
 // generate a random position, based on boundary width, height and x and y offset
-randomPosition = function(boundaryWidth, boundaryHeight, boundaryX, boundaryY) {
-	var x = (Math.floor(Math.random() * boundaryWidth) + boundaryX) * boardPieceWidth;
-	var y = (Math.floor(Math.random() * boundaryHeight) + boundaryY) * boardPieceHeight;
-	return [x,y];
+function randomPosition (boundaryWidth, boundaryHeight, boundaryX, boundaryY) {
+    var x = (Math.floor(Math.random() * boundaryWidth) + boundaryX) * boardPieceWidth;
+    var y = (Math.floor(Math.random() * boundaryHeight) + boundaryY) * boardPieceHeight;
+    return [x,y];
 }
-
 

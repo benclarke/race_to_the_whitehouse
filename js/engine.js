@@ -1,5 +1,7 @@
 // game engine
 
+//original code from Udacity Front End Developer Nanodegree Project 3
+
 var Engine = (function(global) {
 
     var doc = global.document,
@@ -12,9 +14,9 @@ var Engine = (function(global) {
     canvas.height = 700;
     canvas.tabIndex = 1;
 
-    var wrapper = document.createElement('div')
+    var wrapper = document.createElement('div');
     wrapper.className = 'wrapper';
-    wrapper.setAttribute('id', 'wrapper')
+    wrapper.setAttribute('id', 'wrapper');
     doc.body.appendChild(wrapper);
     wrapper.appendChild(canvas);
 
@@ -49,18 +51,12 @@ var Engine = (function(global) {
         addEnemies(dt);
 
         allPieces.forEach(function(piece) {
-            if (piece instanceof Array) {
-                for (var i = 0; i < piece.length; i++) {
-                    piece[i].update(dt);
-                };
-            } else {
-            piece.update(dt);
-            }
-        });
-        addedEnemies.forEach(function(piece) {
             piece.update(dt);
         });
 
+        addedEnemies.forEach(function(piece) {
+            piece.update(dt);
+        });
 
         player.update(dt);
     }
@@ -83,15 +79,10 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allPieces.forEach(function(piece) {
-            if (piece instanceof Array) {
-                for (var i = 0; i < piece.length; i++) {
-                    piece[i].render();
-                };
-            } else {
+         allPieces.forEach(function(piece) {
             piece.render();
-            }
-        });
+         });
+
         addedEnemies.forEach(function(piece) {
             piece.render();
         });
@@ -118,6 +109,7 @@ var Engine = (function(global) {
         'images/ted-cruz.png',
         'images/enemy-trump.png',
         'images/enemy-nut.png',
+        'images/enemy-nut-b.png',
         'images/enemy-hillary-right.png',
         'images/enemy-hillary-left.png',
         'images/enemy-romney.png',
@@ -132,7 +124,9 @@ var Engine = (function(global) {
         'images/gameboard.jpg',
         'images/gameboard-flag.jpg',
         'images/goodie-koch.png',
+        'images/goodie-koch-hit.png',
         'images/goodie-uscc.png',
+        'images/goodie-uscc-hit.png',
         'images/goodie-disaster.png',
         'images/goodie-cash-hit.png',
         'images/goodie-inflame.png',
@@ -174,7 +168,6 @@ var Engine = (function(global) {
         document.getElementById('wrapper').addEventListener('click', setPlayer);
 
         function setPlayer() {
-            console.log(event.clientX, event.clientY);
             if (event.clientY > 250 && event.clientY < 425) {
                 if (event.clientX > 1150) {
                     player = new JebBush();

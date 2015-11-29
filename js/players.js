@@ -1,4 +1,3 @@
-
 //Generic Player object
 var Player = function() {
 
@@ -31,7 +30,7 @@ var Player = function() {
 		this.koch = true;
 
 		//cash on hand
-		this.initialCash = 2000;
+		this.initialCash = 20000;
 		this.cash = this.initialCash;
 
 		// what happens with each frame
@@ -52,7 +51,7 @@ var Player = function() {
 			//track lives left
 			ctx.fillStyle = 'black';
 			ctx.fillText('Lives Remaining: ' + player.lives, 20, 630);
-		}
+		};
 
     this.render = function() {
     		this.vy = this.y + offsetY ;
@@ -76,7 +75,7 @@ var Player = function() {
     		offsetY = offsetY - boardPieceHeight;
     	}
 
-    }
+    };
     this.handleInput = function(key) {
 
     	// first, each move costs $$
@@ -96,7 +95,7 @@ var Player = function() {
 	          		this.startOver();
 	          	}
 	          	if (this.y === 300) {
-	          		this.y = this.y
+	          		this.y = this.y;
 	          	}	else {
 	          		this.y = this.y - boardPieceHeight;
 	          		this.setOffsetY('up');
@@ -114,7 +113,7 @@ var Player = function() {
       }
 
 
-    }
+    };
 
     this.startOver = function() {
     	this.lives--;
@@ -124,7 +123,7 @@ var Player = function() {
     	this.x = this.rightness * boardPieceWidth;
     	this.y = this.playerStartY;
 
-    	if (this.win != true && this.lives > 0) {
+    	if (this.win !== true && this.lives > 0) {
     		createCharacters();
     		player.cash = player.initialCash;
     	}
@@ -137,7 +136,7 @@ var Player = function() {
 			    ctx.drawImage(Resources.get(screenImg), 0, 0);
 			    ctx.drawImage(Resources.get('images/playAgain.png'), 550, 470);
 			    document.getElementById('wrapper').addEventListener('click', playAgain);
-			  }
+			  };
 
 			  // just kill all keyboard input
 			  this.handleInput = function() {};
@@ -151,9 +150,9 @@ var Player = function() {
   			}
   		}
 
-    }
+    };
 
-} //end generic Player object
+}; //end generic Player object
 
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
@@ -177,7 +176,7 @@ var BenCarson = function() {
 
   this.x = this.rightness * boardPieceWidth;
 
-}
+};
 
 // Carly Fiorina
 var CarlyFiorina = function() {
@@ -189,7 +188,7 @@ var CarlyFiorina = function() {
 
   this.x = this.rightness * boardPieceWidth;
 
-}
+};
 
 
 // Jeb Bush
@@ -211,7 +210,7 @@ var JebBush = function() {
 
 	this.cash = this.initialCash;
 
-}
+};
 
 // Marco Rubio
 var MarcoRubio = function() {
@@ -226,9 +225,8 @@ var MarcoRubio = function() {
 	this.initialCash = 3000;
 	this.cash = this.initialCash;
 
-}
+};
 // Ted Cruz
-// Lots of money, but multiple Hillarys or addition of DNC or something
 var TedCruz = function() {
 	Player.call(this);
 
@@ -241,5 +239,4 @@ var TedCruz = function() {
 	this.initialCash = 3000;
 	this.cash = this.initialCash;
 
-}
-
+};

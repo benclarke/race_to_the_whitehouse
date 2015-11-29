@@ -1,4 +1,4 @@
-/* Resources.js
+/* Resources.js -- Udacity Front End Developer Nanodegree Project 3
  * This is simple an image loading utility. It eases the process of loading
  * image files so that they can be used within your game. It also includes
  * a simple "caching" layer so it will reuse cached images if you attempt

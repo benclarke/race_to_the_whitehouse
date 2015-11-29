@@ -1,8 +1,17 @@
 // goodies
 
-var StationaryGoodie = function() {
+var StationaryPiece = function() {
 
 	this.pieceType = 'stationary';
+
+	this.hit = false;
+
+	// default boundaries for stationary pieces
+	this.boundaryX = 0;
+	this.boundaryY = 5;
+	this.boundaryWidth = 12;
+	this.boundaryHeight = 14;
+
 
 	this.render = function() {
 		this.vy = this.y + offsetY;
@@ -11,14 +20,17 @@ var StationaryGoodie = function() {
 
 	this.update = function(dt) {
 		collision.call(this);
-	}
+	};
 	this.hitSprite = 'images/blank-piece.png';
-}
+};
 
 var Koch = function() {
-	StationaryGoodie.call(this);
+	StationaryPiece.call(this);
 
 	this.sprite = 'images/goodie-koch.png';
+	this.hitSprite = 'images/goodie-koch-hit.png';
+
+	this.name = 'koch';
 
 	this.goodie = 9;
 
@@ -29,16 +41,15 @@ var Koch = function() {
 	this.boundaryWidth = 4;
 	this.boundaryHeight = 10;
 
-	var position = randomPosition(this.boundaryWidth, this.boundaryHeight, this.boundaryX, this.boundaryY);
-	this.x = position[0];
-	this.y = position[1];
-
-
-}
+};
 
 // chamber of commerce money
 var Uscc = function() {
-	StationaryGoodie.call(this);
+	// this.prototype = StationaryPiece;
+
+	StationaryPiece.call(this);
+
+	this.name = 'uscc';
 
 	this.sprite = 'images/goodie-uscc.png';
 
@@ -51,16 +62,15 @@ var Uscc = function() {
 	this.boundaryWidth = 9;
 	this.boundaryHeight = 14;
 
-	var position = randomPosition(this.boundaryWidth, this.boundaryHeight, this.boundaryX, this.boundaryY);
-	this.x = position[0];
-	this.y = position[1];
+	this.hitSprite = 'images/goodie-uscc-hit.png';
 
+};
 
-}
-
-// inflammatory statement
+// inflammatory statement, jump ahead
 var Inflame = function() {
-	StationaryGoodie.call(this);
+	StationaryPiece.call(this);
+
+	this.name = 'inflame';
 
 	this.goodieType = 'position';
 	this.goodie = 3;
@@ -72,13 +82,9 @@ var Inflame = function() {
 	this.boundaryWidth = 7;
 	this.boundaryHeight = 6;
 
-	var position = randomPosition(this.boundaryWidth, this.boundaryHeight, this.boundaryX, this.boundaryY);
-	this.x = position[0];
-	this.y = position[1];
+};
 
-}
-
-
+//unused Reagan piece (would freeze all enemies, theoretically)
 var Reagan = function() {
 	MovingEnemy.call(this);
 
@@ -101,7 +107,7 @@ var Reagan = function() {
 
 			position = randomPosition(boundaryWidth, boundaryHeight, boundaryY, boundaryY);
 
-			calcSpeed()
+			calcSpeed();
 
 			function calcSpeed() {
 			    var x = Math.abs(oldPosition[0] - position[0]);
@@ -133,5 +139,5 @@ var Reagan = function() {
 			this.y -= speed.y;
 		}
 
-	} // end update function for Reagan
-}
+	}; // end update function for Reagan
+};

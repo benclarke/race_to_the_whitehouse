@@ -35,6 +35,12 @@ function collision() {
   //if we have a collision and player hasn't won or run out of lives, then...
   if (this.hit === true && player.win === false && player.lives > 0 ) {
 
+  	var piece = this;
+  	window.setTimeout(fadeOut, 2500);
+  	function fadeOut() {
+  	    piece.sprite = 'images/blank-piece.png';
+  	}
+
   	// play sound effect
   	if (document.getElementById(this.name)) {
   		audio = document.getElementById(this.name);
@@ -60,7 +66,7 @@ function collision() {
 					player.y = player.y + boardPieceHeight;
 					player.setOffsetY('down');
 				}
-			};
+			}
 		} // for goodies that jump you ahead
 		else if (this.goodieType === 'position') {
 			for (var i = this.goodie; i > 0; i--) {
@@ -68,17 +74,12 @@ function collision() {
 					player.y = player.y - boardPieceHeight;
 					player.setOffsetY('up');
 				}
-			};
+			}
 		}
 		// no longer update the piece
 		this.update = function(){};
 		this.hit = false;
 		this.sprite = this.hitSprite;
-		var piece = this;
-		window.setTimeout(fadeOut, 2500);
 
-		function fadeOut() {
-			piece.sprite = 'images/blank-piece.png';
-		}
   }
 }
