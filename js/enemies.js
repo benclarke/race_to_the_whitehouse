@@ -6,7 +6,7 @@ var MovingEnemy = function() {
 		this.name = 'movingEnemy';
 
     // this enemy's speed
-    this.speed = 250 / player.enemySpeed;
+    this.speed = 250 * player.enemySpeed;
 
     // comes at the player somewhere in front of them 1 - 3 squares, unless near endzone
     this.startY = function () {
@@ -111,7 +111,7 @@ var Hillary = function() {
 	this.x = 0;
 	this.y = 300;
 
-	this.speed = 400;
+	this.speed = 400 * player.enemySpeed;
 
 	this.damageType = 'fatal';
 
@@ -165,7 +165,7 @@ var MittGhost = function() {
 
     var x = Math.abs(oldPosition[0] - position[0]);
     var y = Math.abs(oldPosition[1] - position[1]);
-    var speedVariable = Math.floor(Math.random() * 100 + 1);
+    var speedVariable = Math.floor(Math.random() * 100 + 1) / player.enemySpeed;
 
     speed.x = x / speedVariable;
     speed.y = y / speedVariable;

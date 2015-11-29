@@ -20,7 +20,7 @@ function collision() {
 		// if player position is witin an area radiating from this position
 		if (((this.centerX >= playerCenterX - give) && (this.centerX <= playerCenterX + give)) && ((this.centerY >= playerCenterY - give) && (this.centerY <= playerCenterY + give))) {
 			this.hit = true;
-			console.log('hit Mitt');
+			console.log('hit Mitt or Reagan');
 		}
 	}
 
@@ -54,6 +54,13 @@ function collision() {
 		//if enemy takes $$, subtract from cash
 		else if (this.damageType === 'cash') {
 			player.cash = player.cash - 100 * this.damage + 100; // add $100 to compensate for move
+		}
+		else if (this.goodieType === 'enemySpeed') {
+			player.enemySpeed = 0.1;
+			window.setTimeout(clearReagan, 7000);
+			function clearReagan() {
+				player.enemySpeed = 1;
+			}
 		}
 		// if goodie gives $$, add to cash
 		else if (this.goodieType === 'cash') {

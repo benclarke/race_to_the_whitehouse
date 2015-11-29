@@ -140,7 +140,11 @@ var Engine = (function(global) {
         'images/go-button-deselected.png',
         'images/gameover.png',
         'images/playAgain.png',
-        'images/youWin.png'
+        'images/youWin.png',
+        'images/goodie-reagan.png',
+        'images/back-button.png',
+        'images/info-page.jpg',
+        'images/info-button.png'
     ]);
 
     Resources.onReady(setup);
@@ -157,6 +161,7 @@ var Engine = (function(global) {
             ctx.drawImage(Resources.get('images/carly-fiorina.png'), 820, 240);
             ctx.drawImage(Resources.get('images/marco-rubio.png'), 980, 240);
             ctx.drawImage(Resources.get('images/jeb-bush.png'), 1150, 240, 100, 150);
+            ctx.drawImage(Resources.get('images/info-button.png'), 1000, 480);
 
             if (go === true) {
                 ctx.drawImage(Resources.get('images/go-button.jpg'), 750, 460);
@@ -168,6 +173,19 @@ var Engine = (function(global) {
         document.getElementById('wrapper').addEventListener('click', setPlayer);
 
         function setPlayer() {
+            if (event.clientY > 480 && event.clientY < 510) {
+                if (event.clientX > 1000  && event.clientX < 1150) {
+                    document.getElementById('wrapper').removeEventListener('click', setPlayer);
+                    ctx.drawImage(Resources.get('images/info-page.jpg'), 0 , 0);
+                    ctx.drawImage(Resources.get('images/back-button.png'), 1100, 510);
+                    document.getElementById('wrapper').addEventListener('click', goBack);
+                    function goBack() {
+                        drawPlayers();
+                        document.getElementById('wrapper').removeEventListener('click', goBack);
+                        document.getElementById('wrapper').addEventListener('click', setPlayer);
+                    }
+                }
+            }
             if (event.clientY > 250 && event.clientY < 425) {
                 if (event.clientX > 1150) {
                     player = new JebBush();

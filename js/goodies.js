@@ -86,7 +86,11 @@ var Inflame = function() {
 
 //unused Reagan piece (would freeze all enemies, theoretically)
 var Reagan = function() {
-	MovingEnemy.call(this);
+	MittGhost.call(this);
+
+	this.name = 'reagan';
+
+	this.damageType = null;
 
 	this.goodieType = 'enemySpeed';
 
@@ -94,50 +98,7 @@ var Reagan = function() {
 
 	var boundaryX = 0;
 	var boundaryY = 3;
-	var boundaryWidth = 10;
-	var boundaryHeight = 14;
+	var boundaryWidth = 13;
+	var boundaryHeight = 10;
 
-	this.update = function(dt) {
-		collision.call(this);
-
-		var oldPosition = [this.x, this.y];
-
-		// get random new point
-		function getNewPosition() {
-
-			position = randomPosition(boundaryWidth, boundaryHeight, boundaryY, boundaryY);
-
-			calcSpeed();
-
-			function calcSpeed() {
-			    var x = Math.abs(oldPosition[0] - position[0]);
-			    var y = Math.abs(oldPosition[1] - position[1]);
-			    var speedVariable = Math.floor(Math.random() * 100);
-
-			    speed.x = x / speedVariable;
-			    speed.y = y / speedVariable;
-
-			}
-		}
-
-		// need to find a match within 1 px, since final position may not === what is calculated with speed variable
-		if ((Math.abs(position[0] - this.x) < 1) && (Math.abs(position[1] - this.y) < 1)) {
-			getNewPosition();
-		}
-
-		if (position[0] > this.x) {
-			this.x += speed.x;
-
-		} else if (position[0] < this.x) {
-			this.x -= speed.x;
-		}
-
-		if (position[1] > this.y) {
-			this.y += speed.y;
-
-		} else if (position[1] < this.y) {
-			this.y -= speed.y;
-		}
-
-	}; // end update function for Reagan
 };

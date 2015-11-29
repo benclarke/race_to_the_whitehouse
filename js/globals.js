@@ -40,7 +40,9 @@ function createCharacters() {
 
     var hillary = new Hillary();
 
-    allPieces = [mitt, hillary];
+    var reagan = new Reagan();
+
+    allPieces = [mitt, hillary, reagan];
 
     // add all randomly placed pieces, goodies and enemies
     piecesArray(1, SkeletonClosetBlack);
@@ -49,6 +51,12 @@ function createCharacters() {
     piecesArray(player.gaffes,Gaffe);
     piecesArray(player.inflame,Inflame);
     piecesArray(player.uschamber,Uscc);
+
+    //add a few generated enemies to start the game
+    addedEnemies[0] = new Trump();
+    addedEnemies[1] = new RightWingNut();
+    addedEnemies[2] = new Trump();
+    addedEnemies[3] = new RightWingNut();
 
 }
 
@@ -59,7 +67,6 @@ function piecesArray(pieceQty, constructorType){
         var position = randomPosition(piece.boundaryWidth, piece.boundaryHeight, piece.boundaryX, piece.boundaryY);
         piece.x = position[0];
         piece.y = position[1];
-        console.log(piece);
         piece.index = allPieces.push(piece);
       }
     return pieces;
@@ -86,7 +93,7 @@ function addEnemies(dt) {
     }
     if (count % (rightwardness * 10) === 0 ) {
         rightWingNut = new RightWingNut();
-        rightWingNut.speed = 2000 / rightwardness;
+        rightWingNut.speed = (2000 / rightwardness) * player.enemySpeed;
         addedEnemies.push(rightWingNut);
         if (addedEnemies.length > 30) {addedEnemies.shift();}
     }

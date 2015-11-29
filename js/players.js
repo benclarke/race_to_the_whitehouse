@@ -25,7 +25,7 @@ var Player = function() {
 		this.inflame = 2;
 		this.uschamber = 6;
 
-		this.skeletons = 5;
+		this.skeletons = 10;
 		this.gaffes = 5;
 		this.koch = true;
 
@@ -57,6 +57,7 @@ var Player = function() {
     		this.vy = this.y + offsetY ;
         ctx.drawImage(Resources.get(this.sprite), this.x, this.vy);
         this.statusDisplay();
+        console.log(this.enemySpeed);
 
     };
 
