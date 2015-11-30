@@ -38,7 +38,7 @@ var Player = function() {
     };
 
     this.render = function() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y)
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     };
 
     // this.handleInput = function(key) {
@@ -64,13 +64,13 @@ var Player = function() {
     // }
 
 
-}
+};
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = new Array();
+var allEnemies = [];
 // Placed in function so that each win rebuilds the bad guys
 function createCharacters() {
     allEnemies = [];

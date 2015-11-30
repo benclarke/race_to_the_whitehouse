@@ -30,7 +30,7 @@ var Player = function() {
 		this.koch = true;
 
 		//cash on hand
-		this.initialCash = 20000;
+		this.initialCash = 2000;
 		this.cash = this.initialCash;
 
 		// what happens with each frame
@@ -223,7 +223,7 @@ var MarcoRubio = function() {
 
 	this.x = this.rightness * boardPieceWidth;
 
-	this.initialCash = 3000;
+	this.initialCash = 2500;
 	this.cash = this.initialCash;
 
 };
