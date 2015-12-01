@@ -1,5 +1,3 @@
-# race_to_the_whitehouse
-
 ###Race to the White House 2016!
 
 Play one of five GOP candidates for president as they race to the White House in this mind-blowing satircal game.
